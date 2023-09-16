@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { lazy } from "react";
 import Layout from "./components/Layout/Layout";
 
@@ -7,15 +7,20 @@ const Catalog = lazy(() => import("./pages/Catalog/Catalog"));
 const Favorite = lazy(() => import("./pages/Favorite/Favorite"));
 
 function App() {
+  const location = useLocation();
+  const pathSegments = location.pathname;
+
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="catalog" element={<Catalog />} />
-        <Route path="favorites" element={<Favorite />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Route>
-    </Routes>
+    <div className={pathSegments === "/" ? "homeContainer " : ""}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="catalog" element={<Catalog />} />
+          <Route path="favorites" element={<Favorite />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </div>
   );
 }
 
