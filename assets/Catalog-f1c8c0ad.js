@@ -1,0 +1,1 @@
+import{r as t,j as s}from"./index-742eac5d.js";import{f as o,C as c}from"./CatalogList-aeefc4da.js";const x=()=>{const[r,a]=t.useState([]);return t.useEffect(()=>{o().then(e=>{a(e)})},[]),s.jsx("div",{children:s.jsx(c,{adverts:r})})};export{x as default};
