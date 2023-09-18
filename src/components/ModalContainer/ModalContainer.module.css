@@ -15,12 +15,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 280px;
   width: 100%;
-  padding: 12px;
-  border-radius: 20px;
+  padding: 40px;
+  border-radius: 24px;
   background-color: #ffffff;
-  /* overflow: scroll; */
+  max-width: 541px;
 }
 
 .modalCloseBtn {
@@ -34,5 +33,10 @@
 }
 
 .iconClose {
+  stroke: var(--primary-text-color);
+  transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.iconClose:hover,
+.iconClose:focus {
   stroke: var(--accent-color);
 }

@@ -6,6 +6,7 @@ import ModalContainer from "../ModalContainer/ModalContainer";
 import css from "./CatalogItem.module.css";
 import Button from "../Button";
 import { fetchChangeFavorite } from "../../servises/apiCars";
+import LearnMore from "../LearnMore/LearnMore";
 
 const CatalogItem = ({ car }) => {
   const {
@@ -90,7 +91,9 @@ const CatalogItem = ({ car }) => {
         </Button>
       </li>
       {isModalOpen && (
-        <ModalContainer toggleModal={toggleModal}></ModalContainer>
+        <ModalContainer toggleModal={toggleModal}>
+          <LearnMore car={car} />
+        </ModalContainer>
       )}
     </>
   );
