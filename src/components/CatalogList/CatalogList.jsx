@@ -1,22 +1,39 @@
-import CatalogItem from "../CatalogItem/CatalogItem";
 import PropTypes from "prop-types";
 
-const CatalogList = ({ adverts, setCurrentPage }) => {
-  console.log(adverts);
+import CatalogItem from "../CatalogItem/CatalogItem";
+import css from "./CatalogList.module.css";
+import Sidebar from "../Sidebar/Sidebar";
+import Button from "../Button";
+import { useState } from "react";
+
+const CatalogList = ({ adverts }) => {
+  const [visible, setVisible] = useState(8);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const handelMore = () => {
-    console.log(setCurrentPage);
+    setVisible(visible + 8);
+    setCurrentPage(currentPage + 1);
   };
+
   return (
-    <div>
-      <ul>
-        {adverts.map((car) => (
-          <CatalogItem key={car.id} car={car} />
-        ))}
-      </ul>
-      <button type="button" onClick={handelMore}>
-        Load more
-      </button>
-    </div>
+    <>
+      <div className={css.container}>
+        <Sidebar />
+        <ul className={css.list}>
+          {adverts.slice(0, visible).map((car) => (
+            <CatalogItem key={car.id} car={car} />
+          ))}
+        </ul>
+
+        {visible < adverts.length ? (
+          <Button type="button" onClick={handelMore} className={css.btn}>
+            Load more
+          </Button>
+        ) : (
+          <div className={css.marg}></div>
+        )}
+      </div>
+    </>
   );
 };
 
@@ -41,7 +58,7 @@ CatalogList.propTypes = {
       rentalConditions: PropTypes.string.isRequired,
       rentalPrice: PropTypes.string.isRequired,
       mileage: PropTypes.number.isRequired,
+      favorite: PropTypes.bool.isRequired,
     })
   ).isRequired,
-  setCurrentPage: PropTypes.func.isRequired,
 };

@@ -2,9 +2,8 @@ import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import { useEffect } from "react";
 
-// import { CrossBigIcon } from '../../../helpers/icons';
-
 import css from "./ModalContainer.module.css";
+import { CloseIcon } from "../../helpers/icons";
 
 const modalContainer = document.getElementById("modal-root");
 
@@ -45,7 +44,7 @@ const ModalContainer = ({ toggleModal, children }) => {
             type="button"
             onClick={toggleModal}
           >
-            {/* <CrossBigIcon className={css.iconClose} /> */}
+            <CloseIcon className={css.iconClose} />
           </button>
           {children}
         </div>

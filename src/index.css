@@ -12,10 +12,6 @@
   --hover-blue: #0b44cd;
   --accent-color: #3470ff;
   --shadow-hover: 7px 13px 14px rgba(116, 177, 232, 0.24);
-
-  /* shadows */
-  /* --shadows-default: 3px 8px 14px rgba(136, 198, 253, 0.19);
-   */
 }
 
 *,
@@ -61,6 +57,7 @@ select {
 button {
   padding: 0;
   cursor: pointer;
+  border: none;
 }
 
 body {
@@ -75,39 +72,8 @@ body {
   line-height: 1.37;
   background-color: #fff;
   color: #111111;
+  font-weight: 400;
 }
-
-/* button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
 
 .homeContainer {
   background-image: linear-gradient(90deg, #000, #d7e7f1);
