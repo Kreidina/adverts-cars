@@ -1,36 +1,139 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 import CatalogItem from "../CatalogItem/CatalogItem";
 import css from "./CatalogList.module.css";
 import Sidebar from "../Sidebar/Sidebar";
 import Button from "../Button";
-import { useState } from "react";
+
+const initialValues = {
+  selectBrand: "",
+  selectPrice: "",
+  mileage: { from: "", to: "" },
+};
 
 const CatalogList = ({ adverts }) => {
   const [visible, setVisible] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
+  const [dataValues, setDataValues] = useState(initialValues);
 
   const handelMore = () => {
     setVisible(visible + 8);
     setCurrentPage(currentPage + 1);
   };
 
+  const onSubmit = (data) => {
+    setDataValues(data);
+    setCurrentPage(1);
+    setVisible(8);
+  };
+
+  const filterAdverts = () => {
+    const { selectBrand, selectPrice, mileage } = dataValues;
+    const { from, to } = mileage;
+    const FROM = Number(from);
+    const TO = Number(to);
+    const selectedPrice = Number(selectPrice.replace("$", ""));
+
+    let filteredAdverts = [...adverts];
+
+    filteredAdverts = filteredAdverts.filter((adv) => {
+      const rentalPrice =
+        Math.round(Number(adv.rentalPrice.replace("$", "")) / 10) * 10;
+
+      if (selectBrand !== "" && adv.make !== selectBrand) {
+        return false;
+      }
+
+      if (selectPrice !== "" && rentalPrice < selectedPrice) {
+        return false;
+      }
+
+      if (from !== "" && adv.mileage < FROM) {
+        return false;
+      }
+
+      if (to !== "" && adv.mileage > TO) {
+        return false;
+      }
+
+      return true;
+    });
+
+    if (selectPrice !== "") {
+      filteredAdverts.sort((a, b) => {
+        const priceA = Number(a.rentalPrice.replace("$", ""));
+        const priceB = Number(b.rentalPrice.replace("$", ""));
+        return priceA - priceB;
+      });
+    }
+
+    return filteredAdverts;
+  };
+
+  // const filterAdverts = () => {
+  //   const { selectBrand, selectPrice, mileage } = dataValues;
+  //   const { from, to } = mileage;
+  //   const FROM = Number(from);
+  //   const TO = Number(to);
+  //   const selectedPrice = Number(selectPrice);
+
+  //   let filteredAdverts = [...adverts];
+
+  //   if (selectBrand !== "") {
+  //     filteredAdverts = filteredAdverts.filter(
+  //       (adv) => adv.make === selectBrand
+  //     );
+  //   } else if (selectPrice !== "") {
+  //     filteredAdverts = filteredAdverts.filter((adv) => {
+  //       const rentalPrice = Math.floor(
+  //         Number(adv.rentalPrice.replace("$", ""))
+  //       );
+  //       return rentalPrice >= selectedPrice;
+  //     });
+
+  //     filteredAdverts.sort((a, b) => {
+  //       const priceA = Number(a.rentalPrice.replace("$", ""));
+  //       const priceB = Number(b.rentalPrice.replace("$", ""));
+  //       return priceA - priceB;
+  //     });
+  //   } else if (from !== "") {
+  //     filteredAdverts = filteredAdverts.filter((adv) => {
+  //       return adv.mileage > FROM;
+  //     });
+  //   } else if (to !== "") {
+  //     filteredAdverts = filteredAdverts.filter((adv) => {
+  //       console.log(adv.mileage < TO);
+  //       return adv.mileage < TO;
+  //     });
+  //   }
+  //   return filteredAdverts;
+  // };
+
+  const filter = filterAdverts();
+  // console.log(filter);
   return (
     <>
       <div className={css.container}>
-        <Sidebar />
-        <ul className={css.list}>
-          {adverts.slice(0, visible).map((car) => (
-            <CatalogItem key={car.id} car={car} />
-          ))}
-        </ul>
+        <Sidebar onSubmitData={onSubmit} />
+        {filter.length > 0 ? (
+          <>
+            <ul className={css.list}>
+              {filter.slice(0, visible).map((car) => (
+                <CatalogItem key={car.id} car={car} />
+              ))}
+            </ul>
 
-        {visible < adverts.length ? (
-          <Button type="button" onClick={handelMore} className={css.btn}>
-            Load more
-          </Button>
+            {visible < filter.length ? (
+              <Button type="button" onClick={handelMore} className={css.btn}>
+                Load more
+              </Button>
+            ) : (
+              <div className={css.marg}></div>
+            )}
+          </>
         ) : (
-          <div className={css.marg}></div>
+          <div>sdsdfsf</div>
         )}
       </div>
     </>

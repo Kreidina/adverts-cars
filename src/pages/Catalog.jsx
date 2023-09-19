@@ -12,7 +12,6 @@ const Catalog = () => {
       setAdverts(car);
     });
   }, []);
-
   return (
     <div>
       <CatalogList adverts={adverts} />

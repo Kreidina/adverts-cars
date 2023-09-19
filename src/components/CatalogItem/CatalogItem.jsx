@@ -31,6 +31,7 @@ const CatalogItem = ({ car }) => {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+  // console.log(rentalPrice);
 
   const changeFavorite = async (car) => {
     const newValue = JSON.stringify({ favorite: !favorite });

@@ -8,5 +8,4 @@ const Home = () => {
   );
 };
 
-  // "homepage": "https://kreidina.github.io/adverts-cars",
 export default Home;

@@ -5,3 +5,12 @@ export const Location = () => {
   const pathSegments = location.pathname;
   return pathSegments;
 };
+
+export const priceSelect = () => {
+  const array = [];
+  for (let i = 30; i <= 150; i += 10) {
+    array.push(`${i}$`);
+  }
+
+  return array;
+};
